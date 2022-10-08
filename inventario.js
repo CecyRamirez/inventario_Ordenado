@@ -31,20 +31,25 @@ class Inventario{
                 console.log('mid i ' + mid_index)
                 console.log(this.productos[mid_index].codigo);
                 console.log(producto.codigo)
-                if(this.productos[mid_index].codigo > producto.codigo && producto.codigo>this.productos[mid_index-1].codigo){
-                    console.log("entró");
+                if(this.productos[mid_index].codigo > producto.codigo){
+                    console.log("entró al 1");
                     this.productos.push(producto);
                     console.log(this.productos);
-                    let aux= this.productos.length-1;
                     for(let i= this.productos.length-1; i>mid_index;i--){
                         this.productos[i]= this.productos[i-1];
                     }
                     this.productos[mid_index]=producto;
                 }
                 else if(this.productos[mid_index].codigo < producto.codigo){
+                    console.log("entró al dos");
                     this.productos.push(producto);
-
+                    console.log(this.productos);
+                    for(let i= this.productos.length-1; i>mid_index +1;i--){
+                        this.productos[i]= this.productos[i-1];
+                    }
+                    this.productos[mid_index + 1]=producto;
                 }
+                
             }
         }
     }
