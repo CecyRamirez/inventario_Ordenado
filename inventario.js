@@ -8,49 +8,44 @@ class Inventario{
             this.productos.push(producto);
         }
         else{
-            if(this.productos.length==0){
+            //buscar valor
+            let left= 0;
+            let right= this.productos.length-1;
+            while(left <= right){
+                var mid_index =Math.floor((left + right)/2);
+                let middle_value = this.productos[mid_index].codigo;
+                if(producto.codigo== middle_value){
+                    return this.productos[mid_index];
+                }
+                if (producto.codigo < middle_value){
+                    right= mid_index -1;
+                }
+                else if (producto.codigo > middle_value){
+                    left= mid_index +1;
+                }
+            }
+            console.log('mid i ' + mid_index)
+            console.log(this.productos[mid_index].codigo);
+            console.log(producto.codigo)
+            if(this.productos[mid_index].codigo > producto.codigo){
+                console.log("entró al 1");
                 this.productos.push(producto);
+                console.log(this.productos);
+                for(let i= this.productos.length-1; i>mid_index;i--){
+                    this.productos[i]= this.productos[i-1];
+                }
+                this.productos[mid_index]=producto;
             }
-            else{
-                //buscar valor
-                let left= 0;
-                let right= this.productos.length-1;
-                while(left <= right){
-                    var mid_index =Math.floor((left + right)/2);
-                    let middle_value = this.productos[mid_index].codigo;
-                    if(codigo== middle_value){
-                        return this.productos[mid_index];
-                    }
-                    if (codigo < middle_value){
-                        right= mid_index -1;
-                    }
-                    else if (codigo > middle_value){
-                        left= mid_index +1;
-                    }
+            else /*if(this.productos[mid_index].codigo < producto.codigo)*/{
+                console.log("entró al dos");
+                this.productos.push(producto);
+                console.log(this.productos);
+                for(let i= this.productos.length-1; i> mid_index+1 ;i--){
+                    this.productos[i]= this.productos[i-1];
                 }
-                console.log('mid i ' + mid_index)
-                console.log(this.productos[mid_index].codigo);
-                console.log(producto.codigo)
-                if(this.productos[mid_index].codigo > producto.codigo){
-                    console.log("entró al 1");
-                    this.productos.push(producto);
-                    console.log(this.productos);
-                    for(let i= this.productos.length-1; i>mid_index;i--){
-                        this.productos[i]= this.productos[i-1];
-                    }
-                    this.productos[mid_index]=producto;
-                }
-                else if(this.productos[mid_index].codigo < producto.codigo){
-                    console.log("entró al dos");
-                    this.productos.push(producto);
-                    console.log(this.productos);
-                    for(let i= this.productos.length-1; i>mid_index +1;i--){
-                        this.productos[i]= this.productos[i-1];
-                    }
-                    this.productos[mid_index + 1]=producto;
-                }
+                this.productos[mid_index + 1]=producto;
+            }
                 
-            }
         }
     }
     eliminar(codigo){
